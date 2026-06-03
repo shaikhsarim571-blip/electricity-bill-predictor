@@ -90,7 +90,7 @@ def load_data():
         return df
         
     except Exception as e:
-        st.sidebar.warning(f"⚠ Could not load data: {str(e)}. Using synthetic data.")
+        # Silently use synthetic data if file not found (e.g., on Streamlit Cloud)
         return create_sample_dataset(n_months=36)
 
 @st.cache_resource
