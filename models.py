@@ -4,7 +4,7 @@ from sklearn.ensemble import RandomForestRegressor
 from sklearn.metrics import mean_squared_error, mean_absolute_error, r2_score
 from sklearn.model_selection import train_test_split
 import xgboost as xgb
-from prophet import Prophet
+# from prophet import Prophet  # Commented out for Streamlit Cloud compatibility
 import joblib
 import warnings
 
@@ -31,23 +31,9 @@ class PredictiveModels:
         return self.xgb_model
     
     def train_prophet(self, df, target_col='unit_consumption_kwh', date_col='date'):
-        """Train Facebook Prophet for time-series forecasting"""
-        prophet_df = df[[date_col, target_col]].copy()
-        prophet_df.columns = ['ds', 'y']
-        prophet_df['ds'] = pd.to_datetime(prophet_df['ds'])
-        prophet_df = prophet_df.sort_values('ds').reset_index(drop=True)
-        
-        self.prophet_model = Prophet(
-            yearly_seasonality=True,
-            weekly_seasonality=False,
-            daily_seasonality=False,
-            interval_width=0.95
-        )
-        
-        with open('/dev/null', 'w') if hasattr(open, '__enter__') else None:
-            self.prophet_model.fit(prophet_df)
-        
-        return self.prophet_model
+        """Placeholder for Prophet - disabled for Streamlit Cloud"""
+        # Prophet disabled for Streamlit Cloud compatibility
+        return None
     
     def predict(self, model_type, X_test):
         """Generate predictions"""
@@ -59,14 +45,8 @@ class PredictiveModels:
             raise ValueError(f"Unknown model: {model_type}")
     
     def forecast_prophet(self, periods=3):
-        """Forecast future values with Prophet"""
-        if self.prophet_model is None:
-            return None
-        
-        future = self.prophet_model.make_future_dataframe(periods=periods, freq='M')
-        forecast = self.prophet_model.predict(future)
-        
-        return forecast[['ds', 'yhat', 'yhat_lower', 'yhat_upper']]
+        """Forecast future values - Prophet disabled for Streamlit Cloud"""
+        return None  # Prophet disabled for Streamlit Cloud compatibility
     
     def evaluate(self, y_true, y_pred):
         """Calculate evaluation metrics"""
