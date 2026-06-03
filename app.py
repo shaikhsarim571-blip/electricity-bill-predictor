@@ -60,7 +60,7 @@ st.markdown("""
 def load_data():
     """Load household power consumption dataset"""
     try:
-        df = pd.read_csv('household_power_consumption.txt', sep=';', 
+        df = pd.read_csv('household_power_consumption1.txt', sep=';', 
                          low_memory=False, 
                          na_values='?')
         
@@ -86,7 +86,7 @@ def load_data():
         if len(df) > 50000:
             df = df.iloc[-50000:].reset_index(drop=True)
         
-        st.sidebar.success(f"✓ Loaded {len(df)} records from household_power_consumption.txt")
+        st.sidebar.success(f"✓ Loaded {len(df)} records from household_power_consumption1.txt")
         return df
         
     except Exception as e:
